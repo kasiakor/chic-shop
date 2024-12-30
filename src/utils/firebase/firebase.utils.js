@@ -1,6 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -44,7 +49,10 @@ export const db = getFirestore();
 
 // use uid on the sing-in response for user as doc identifier
 // set and get data using reference
-export const createUserDocumentFromAuth = async (userAuth) => {
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation
+) => {
   if (!userAuth) return;
   const userDocRef = doc(db, "users", userAuth.uid);
 
@@ -65,6 +73,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         displayName,
         email,
         createdAt,
+        // add display name if  null
+        ...additionalInformation,
       });
     } catch (error) {
       console.log("error creating the user", error.message);
@@ -73,4 +83,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
   // if user data exists
   // return userDocRef
   return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = (email, password) => {
+  return createUserWithEmailAndPassword(auth, email, password);
 };
