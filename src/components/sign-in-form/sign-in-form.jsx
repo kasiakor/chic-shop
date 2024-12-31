@@ -33,7 +33,16 @@ const SignInForm = () => {
       console.log("email and pass sign in result", result);
       resetFormFields();
     } catch (error) {
-      console.log(error);
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorrect password");
+          break;
+        case "auth/invalid-credential":
+          alert("invalid credentials");
+          break;
+        default:
+          console.log(error);
+      }
     }
   };
 
