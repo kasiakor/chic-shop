@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../../context/user.context";
 import {
   createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
@@ -17,6 +18,9 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultForm);
   const { email, password } = formFields;
 
+  // use user context
+  const { setCurrentUser } = useContext(UserContext);
+
   const resetFormFields = () => {
     setFormFields(defaultForm);
   };
@@ -29,8 +33,13 @@ const SignInForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const result = await signInAuthUserWithEmailAndPassword(email, password);
-      console.log("email and pass sign in result", result);
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      setCurrentUser(user);
+
+      // console.log("email and pass sign in result", result);
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -53,7 +62,7 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="sign-up-container">
+    <div className="sign-in-container">
       <h2>Already have an account?</h2>
       <span>Sign In with your email and password</span>
       <form onSubmit={handleSubmit}>
