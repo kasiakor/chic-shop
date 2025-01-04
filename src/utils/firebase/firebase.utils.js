@@ -4,6 +4,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -99,3 +100,11 @@ export const signInAuthUserWithEmailAndPassword = (email, password) => {
 };
 
 export const signOutUser = async () => await signOut(auth);
+
+// observable listener, stream of events sign in/sign out to keep track of user value
+// whenever the auth state changes the callback will be called
+// when user signs in and signs out
+// permanently open listener, return when the user provider unmounts
+
+export const onAuthStateChangeListener = (callback) =>
+  onAuthStateChanged(auth, callback);
