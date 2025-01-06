@@ -3,13 +3,14 @@ import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
+import { DrawerContext } from "../../context/drawer.context";
 import { UserContext } from "../../context/user.context";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
+  const { isDrawerOpen } = useContext(DrawerContext);
   const { currentUser } = useContext(UserContext);
-  console.log("current user", currentUser);
 
   // hook up sign out to user context
   // whenever the user signs out the state of auth will be changed so we do not need a handler
@@ -39,7 +40,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        <CartDropdown />
+        {isDrawerOpen && <CartDropdown />}
       </div>
       <Outlet />
     </Fragment>
