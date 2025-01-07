@@ -23,18 +23,27 @@ export const DrawerContext = createContext({
   setIsDrawerOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  totalItems: 0,
 });
 
 // provider component
 export const DrawerProvider = ({ children }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
-  const value = { isDrawerOpen, setIsDrawerOpen, addItemToCart, cartItems };
+  const value = {
+    isDrawerOpen,
+    setIsDrawerOpen,
+    addItemToCart,
+    cartItems,
+    totalItems,
+    setTotalItems,
+  };
   return (
     <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>
   );

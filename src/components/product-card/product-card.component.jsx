@@ -6,10 +6,14 @@ import "./product-card.styles.scss";
 const ProductCard = ({ product }) => {
   const { name, imageUrl, price } = product;
 
-  const { addItemToCart } = useContext(DrawerContext);
+  const { addItemToCart, totalItems, setTotalItems } =
+    useContext(DrawerContext);
+
+  console.log("totalItems", totalItems);
 
   const handleAddProduct = () => {
     addItemToCart(product);
+    setTotalItems((prev) => prev + 1);
   };
 
   return (

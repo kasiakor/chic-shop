@@ -4,7 +4,8 @@ import { DrawerContext } from "../../context/drawer.context";
 import "./cart-icon.styles.scss";
 
 const CartIcon = () => {
-  const { isDrawerOpen, setIsDrawerOpen } = useContext(DrawerContext);
+  const { isDrawerOpen, setIsDrawerOpen, totalItems } =
+    useContext(DrawerContext);
 
   const toggleDrawerOpen = () => {
     setIsDrawerOpen(!isDrawerOpen);
@@ -14,7 +15,7 @@ const CartIcon = () => {
   return (
     <div className="cart-icon-container" onClick={toggleDrawerOpen}>
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">0</span>
+      <span className="item-count">{totalItems}</span>
     </div>
   );
 };
