@@ -1,5 +1,10 @@
 import { createContext, useState } from "react";
 
+const deleteCartItem = (cartItems, productToDelete) => {
+  // delete item in array
+  return cartItems.filter((cartItem) => cartItem.id !== productToDelete.id);
+};
+
 const removeCartItem = (cartItems, productToRemove) => {
   // decrease quantity if item in array
   const existingItem = cartItems.find(
@@ -41,6 +46,7 @@ export const DrawerContext = createContext({
   cartItems: [],
   addItemToCart: () => {},
   removeItemFromCart: () => {},
+  deleteItemFromCart: () => {},
   totalItems: 0,
 });
 
@@ -58,6 +64,10 @@ export const DrawerProvider = ({ children }) => {
     setCartItems(removeCartItem(cartItems, productToRemove));
   };
 
+  const deleteItemFromCart = (productToDelete) => {
+    setCartItems(deleteCartItem(cartItems, productToDelete));
+  };
+
   const value = {
     isDrawerOpen,
     setIsDrawerOpen,
@@ -66,6 +76,7 @@ export const DrawerProvider = ({ children }) => {
     totalItems,
     setTotalItems,
     removeItemFromCart,
+    deleteItemFromCart,
   };
   return (
     <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>
