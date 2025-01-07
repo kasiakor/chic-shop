@@ -1,5 +1,22 @@
 import { createContext, useState } from "react";
 
+const removeCartItem = (cartItems, productToRemove) => {
+  // decrease quantity if item in array
+  const existingItem = cartItems.find(
+    (cartItem) => cartItem.id === productToRemove.id
+  );
+
+  if (existingItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== productToRemove.id);
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === productToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
+
 const addCartItem = (cartItems, productToAdd) => {
   // increase quantity if item in array
   const existingItem = cartItems.find(
@@ -23,6 +40,7 @@ export const DrawerContext = createContext({
   setIsDrawerOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
   totalItems: 0,
 });
 
@@ -36,6 +54,10 @@ export const DrawerProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
+  const removeItemFromCart = (productToRemove) => {
+    setCartItems(removeCartItem(cartItems, productToRemove));
+  };
+
   const value = {
     isDrawerOpen,
     setIsDrawerOpen,
@@ -43,6 +65,7 @@ export const DrawerProvider = ({ children }) => {
     cartItems,
     totalItems,
     setTotalItems,
+    removeItemFromCart,
   };
   return (
     <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>
