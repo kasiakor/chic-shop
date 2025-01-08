@@ -10,19 +10,20 @@ import { createContext, useEffect, useState } from "react";
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.utils";
 // actual value
 // it will return the object that will be passed as value to Provider, current user
-export const ProductsContext = createContext({
-  products: [],
+export const CategoriesContext = createContext({
+  categoriesMap: {},
 });
 
 // provider component
-export const ProductsProvider = ({ children }) => {
-  const [products] = useState([]);
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
 
   // get data from firestore
   useEffect(() => {
     const getCategories = async () => {
       const categoriesMap = await getCategoriesAndDocuments();
       console.log("firestore cat map", categoriesMap);
+      setCategoriesMap(categoriesMap);
     };
     getCategories();
   }, []);
@@ -32,11 +33,11 @@ export const ProductsProvider = ({ children }) => {
   //   addCollectionAndDocuments("categories", SHOP_DATA);
   // }, []);
 
-  const value = { products };
+  const value = { categoriesMap };
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
