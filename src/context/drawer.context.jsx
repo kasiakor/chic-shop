@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const deleteCartItem = (cartItems, productToDelete) => {
   // delete item in array
@@ -47,7 +47,9 @@ export const DrawerContext = createContext({
   addItemToCart: () => {},
   removeItemFromCart: () => {},
   deleteItemFromCart: () => {},
+  calculateCartTotal: () => {},
   totalItems: 0,
+  cartTotal: 0,
 });
 
 // provider component
@@ -55,6 +57,7 @@ export const DrawerProvider = ({ children }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
+  const [cartTotal, setCartTotal] = useState(0);
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
@@ -68,6 +71,15 @@ export const DrawerProvider = ({ children }) => {
     setCartItems(deleteCartItem(cartItems, productToDelete));
   };
 
+  useEffect(() => {
+    const total = cartItems.reduce(
+      (accumulator, cartItem) =>
+        accumulator + cartItem.price * cartItem.quantity,
+      0
+    );
+    setCartTotal(total);
+  }, [cartItems]);
+
   const value = {
     isDrawerOpen,
     setIsDrawerOpen,
@@ -77,6 +89,7 @@ export const DrawerProvider = ({ children }) => {
     setTotalItems,
     removeItemFromCart,
     deleteItemFromCart,
+    cartTotal,
   };
   return (
     <DrawerContext.Provider value={value}>{children}</DrawerContext.Provider>
