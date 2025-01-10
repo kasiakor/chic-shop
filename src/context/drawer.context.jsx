@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 const deleteCartItem = (cartItems, productToDelete) => {
   // delete item in array
@@ -38,6 +38,33 @@ const addCartItem = (cartItems, productToAdd) => {
   // add new item to the array
   return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
+
+// useReducer
+
+// action types
+export const DRAWER_ACTION_TYPES = {
+  SET_IS_DRAWER_OPEN: "SET_IS_DRAWER_OPEN",
+};
+
+// initial state
+const INITIAL_STATE = {
+  isDrawerOpen: false,
+};
+
+// drawer reducer
+const drawerReducer = (state, action) => {
+  switch (action.type) {
+    case DRAWER_ACTION_TYPES.SET_IS_DRAWER_OPEN:
+      return {
+        ...state,
+        isDrawerOpen: !state.isDrawerOpen,
+      };
+
+    default:
+      throw new Error(`unhandled type: ${action.type}`);
+  }
+};
+
 // actual value
 // it will return the object that will be passed as value to Provider, current user
 export const DrawerContext = createContext({
@@ -54,10 +81,16 @@ export const DrawerContext = createContext({
 
 // provider component
 export const DrawerProvider = ({ children }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+
+  const [{ isDrawerOpen }, dispatch] = useReducer(drawerReducer, INITIAL_STATE);
+
+  const setIsDrawerOpen = () => {
+    dispatch({ type: DRAWER_ACTION_TYPES.SET_IS_DRAWER_OPEN });
+  };
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
