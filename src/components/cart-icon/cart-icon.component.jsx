@@ -11,7 +11,6 @@ const CartIcon = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
 
-  console.log("value of drawer", isDrawerOpen);
   return (
     <div className="cart-icon-container" onClick={toggleDrawerOpen}>
       <ShoppingIcon className="shopping-icon" />

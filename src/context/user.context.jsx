@@ -22,7 +22,6 @@ export const UserProvider = ({ children }) => {
     // us to stop listening for events
     // what is passed is either the authenticated user obj or null
     const unsubscribe = onAuthStateChangeListener((user) => {
-      console.log(user);
       if (user) {
         createUserDocumentFromAuth(user);
       }

@@ -34,9 +34,7 @@ const SignInForm = () => {
         email,
         password
       );
-      // setCurrentUser(user);
 
-      // console.log("email and pass sign in result", result);
       resetFormFields();
     } catch (error) {
       switch (error.code) {

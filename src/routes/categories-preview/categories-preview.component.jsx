@@ -9,8 +9,6 @@ const CategoriesPreview = () => {
   //   /* returns array with titles ["hats", "jackets", "mens", "sneakers", "womens"] */
   // }
 
-  console.log("categoriesMap", categoriesMap);
-
   return (
     <div className="shop-container">
       {Object.keys(categoriesMap).map((key) => {

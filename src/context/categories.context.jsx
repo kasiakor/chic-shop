@@ -22,7 +22,6 @@ export const CategoriesProvider = ({ children }) => {
   useEffect(() => {
     const getCategories = async () => {
       const categoriesMap = await getCategoriesAndDocuments();
-      console.log("firestore cat map", categoriesMap);
       setCategoriesMap(categoriesMap);
     };
     getCategories();
