@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { CategoriesProvider } from "./context/categories.context";
 import { DrawerProvider } from "./context/drawer.context";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
@@ -14,11 +13,9 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <CategoriesProvider>
-          <DrawerProvider>
-            <App />
-          </DrawerProvider>
-        </CategoriesProvider>
+        <DrawerProvider>
+          <App />
+        </DrawerProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

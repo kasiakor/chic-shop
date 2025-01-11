@@ -3,7 +3,6 @@ import "./categories.styles.scss";
 
 const Categories = (props) => {
   const { categories } = props;
-  console.log("lalalal", props);
 
   return (
     <div className="categories-container">
