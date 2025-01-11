@@ -4,20 +4,17 @@ import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import { DrawerContext } from "../../context/drawer.context";
-import { UserContext } from "../../context/user.context";
+
+import { useSelector } from "react-redux";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
   const { isDrawerOpen } = useContext(DrawerContext);
-  const { currentUser } = useContext(UserContext);
+  // const { currentUser } = useContext(UserContext);
 
-  // hook up sign out to user context
-  // whenever the user signs out the state of auth will be changed so we do not need a handler
-  // const signOutHandler = async () => {
-  //   await signOutUser();
-  //   setCurrentUser(null);
-  // };
+  // extract state of current user from the redux store
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   return (
     <Fragment>
