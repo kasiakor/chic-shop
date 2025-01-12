@@ -1,10 +1,10 @@
 import CATEGORY_ACTION_TYPES from "./category.types";
 
-const setCategoriesMap = (categoriesMap) => {
+const setCategories = (categoriesArray) => {
   return {
-    type: CATEGORY_ACTION_TYPES.SET_CATEGORIES_MAP,
-    payload: categoriesMap,
+    type: CATEGORY_ACTION_TYPES.SET_CATEGORIES,
+    payload: categoriesArray,
   };
 };
 
-export default setCategoriesMap;
+export default setCategories;
