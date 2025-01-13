@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
-import { DrawerProvider } from "./context/drawer.context";
 import "./index.scss";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "./store/store";
@@ -13,9 +12,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <DrawerProvider>
-          <App />
-        </DrawerProvider>
+        <App />
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

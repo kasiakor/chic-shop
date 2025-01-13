@@ -1,17 +1,16 @@
-import { Fragment, useContext } from "react";
+import { Fragment } from "react";
+import { useSelector } from "react-redux";
 import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import { DrawerContext } from "../../context/drawer.context";
-
-import { useSelector } from "react-redux";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
 import "./navigation.styles.scss";
 
 const Navigation = () => {
-  const { isDrawerOpen } = useContext(DrawerContext);
-  // const { currentUser } = useContext(UserContext);
+  // const { isCartOpen } = useContext(CartContext);
+  const isCartOpen = useSelector(selectIsCartOpen);
 
   // extract state of current user from the redux store
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -37,7 +36,7 @@ const Navigation = () => {
           )}
           <CartIcon />
         </div>
-        {isDrawerOpen && <CartDropdown />}
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </Fragment>
