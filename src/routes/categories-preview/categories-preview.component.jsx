@@ -11,8 +11,6 @@ const CategoriesPreview = () => {
 
   const categoriesMap = useSelector(selectCategoriesMap);
 
-  console.log("categories map", categoriesMap);
-
   return (
     <div className="shop-container">
       {Object.keys(categoriesMap).map((key) => {
