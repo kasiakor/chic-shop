@@ -15,7 +15,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
     "reselect": "^5.1.1",
-    "sass": "^1.83.0"
+    "sass": "^1.83.0",
+    "styled-components": "^6.1.14"
   },
   "scripts": {
     "start": "react-scripts start",

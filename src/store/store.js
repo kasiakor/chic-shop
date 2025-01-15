@@ -14,7 +14,7 @@ const persistConfig = {
   // local storage
   storage: storage,
   // exclude, coming from auth listener
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const middleWares = [
