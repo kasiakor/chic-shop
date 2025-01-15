@@ -13,10 +13,11 @@ const CategoriesPreview = () => {
 
   return (
     <div className="shop-container">
-      {Object.keys(categoriesMap).map((key) => {
-        const products = categoriesMap[key];
-        return <CategoryPreview key={key} title={key} products={products} />;
-      })}
+      {categoriesMap &&
+        Object.keys(categoriesMap).map((key) => {
+          const products = categoriesMap[key];
+          return <CategoryPreview key={key} title={key} products={products} />;
+        })}
     </div>
   );
 };
