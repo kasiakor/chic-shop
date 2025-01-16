@@ -3,10 +3,10 @@ import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Home from "../src/routes/home/home.component";
 import Navigation from "../src/routes/navigation/navigation.component";
+import { setCurrentUser } from "../src/store/user/user.reducer";
 import Authentication from "./routes/authentication/authentication.component";
 import Checkout from "./routes/checkout/checkout.component";
 import Shop from "./routes/shop/shop.component";
-import setCurrentUser from "./store/user/user.actions";
 import {
   createUserDocumentFromAuth,
   onAuthStateChangeListener,
@@ -23,6 +23,8 @@ const App = () => {
       if (user) {
         createUserDocumentFromAuth(user);
       }
+
+      // console.log("setCurrentUser", setCurrentUser(user));
       dispatch(setCurrentUser(user));
     });
     return unsubscribe;
