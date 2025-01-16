@@ -1,8 +1,5 @@
 import { createSelector } from "reselect";
 
-// reduce returns every time new object so it will cause the component to rerender
-// we want to call selector only when categories we fetch wil change
-
 const selectCategoryReducer = (state) => state.categories;
 
 export const selectCategories = createSelector(
@@ -18,9 +15,4 @@ export const selectCategoriesMap = createSelector(
       acc[title.toLowerCase()] = items;
       return acc;
     }, {})
-);
-
-export const selectIsLoadingCategories = createSelector(
-  [selectCategoryReducer],
-  (categoriesSlice) => categoriesSlice.isLoading
 );
